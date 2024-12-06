@@ -37,7 +37,7 @@ interface RegisterUserUseCaseResponse {
 class RegisterUserUseCase{
     constructor(private readonly authService: AuthService){}
 
-    async excecute(params: RegisterUserUseCaseParams): Promise<RegisterUserUseCaseResponse | null>{
+    async execute(params: RegisterUserUseCaseParams): Promise<RegisterUserUseCaseResponse | null>{
         const {name, email, cpf, password, passwordConfirm} = params;
 
         const registerResponse = await this.authService.register({name, email, cpf, password, passwordConfirm});

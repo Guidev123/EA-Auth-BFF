@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { AuthModule } from './infrastructure/auth/auth.module';
 
 @Module({
-  imports: [],
+  imports: [AuthModule],
   controllers: [],
   providers: [],
 })
