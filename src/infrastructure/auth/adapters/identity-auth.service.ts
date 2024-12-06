@@ -11,32 +11,36 @@ class IdentityAuthService implements AuthService{
     }
 
     async register(params: RegisterUserParams): Promise<LoginResponseDTO | null> {
-        const {name, email, cpf, password, passwordConfirm} = params;
-
-        const url = `https://localhost:44305/api/v1/authentication`;
-        const body = new URLSearchParams({
-            name: name,
-            email: email,
-            cpf: cpf,
-            password: password,
-            passwordConfirm: passwordConfirm
-        });
-
-        try{
-            const response = await this.httpService.axiosRef.post<LoginResponseDTO>(url, body);
-
+        const { name, email, cpf, password, confirmPassword } = params;
+    
+        const url = `http://localhost:5242/api/v1/authentication`;
+        const body = {
+            name,
+            email,
+            cpf,
+            password,
+            confirmPassword,
+        };
+    
+        try {
+            const response = await this.httpService.axiosRef.post<ApiResponse<LoginResponseDTO>>(url, body, {
+                headers: { 'Content-Type': 'application/json' },
+            });
+            const responseData = response.data.data;
             return {
-                accessToken: response.data.accessToken,
-                userToken: response.data.userToken,
-                expiresIn: response.data.expiresIn
-            }
-        }
-        catch(error){
-            if(error.response.status === 400){
+                accessToken: responseData.accessToken,
+                userToken: responseData.userToken,
+                expiresIn: responseData.expiresIn,
+            };
+        } catch (error) {
+            if (error.response && error.response.status === 400) {
+                console.error('Erro 400:', error.response.data);
                 return null;
             }
+            throw error;
         }
     }
+    
     login(params: LoginUserParams): Promise<LoginResponseDTO | null> {
         throw new Error("Method not implemented.");
     }

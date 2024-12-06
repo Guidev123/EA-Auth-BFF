@@ -11,7 +11,7 @@ class AuthController{
 
     @Post('register')
     async register(@Body() body: RegisterBodyDTO, @Res({passthrough: true}) response: Response): Promise<{ accessToken: string; userToken: UserTokenDTO; expiresIn: number; message?: undefined; } | { message: string; accessToken?: undefined; userToken?: undefined; expiresIn?: undefined; }>{
-        const {name, email, cpf, password, passwordConfirm} = body;
+        const {name, email, cpf, password, confirmPassword} = body;
 
         try{
             const useCaseResponse = await this.registerUserUseCase.execute({
@@ -19,7 +19,7 @@ class AuthController{
                 email,
                 cpf,
                 password,
-                passwordConfirm
+                confirmPassword
             });
 
             return {

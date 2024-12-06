@@ -7,7 +7,7 @@ interface RegisterUserUseCaseParams{
     email: string;
     cpf: string;
     password: string;
-    passwordConfirm: string;
+    confirmPassword: string;
 }
 
 interface ClaimDTO {
@@ -38,9 +38,9 @@ class RegisterUserUseCase{
     constructor(private readonly authService: AuthService){}
 
     async execute(params: RegisterUserUseCaseParams): Promise<RegisterUserUseCaseResponse | null>{
-        const {name, email, cpf, password, passwordConfirm} = params;
+        const {name, email, cpf, password, confirmPassword} = params;
 
-        const registerResponse = await this.authService.register({name, email, cpf, password, passwordConfirm});
+        const registerResponse = await this.authService.register({name, email, cpf, password, confirmPassword});
 
         if(!registerResponse){
             throw new InvalidCredentialsError();

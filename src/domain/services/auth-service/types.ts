@@ -2,7 +2,11 @@ interface ClaimDTO {
     value: string;
     type: string;
   }
-  
+  interface ApiResponse<T> {
+    data: T; 
+    message: string;
+    errors: string[];
+}
   interface UserTokenDTO {
     id: string;
     email: string;
@@ -20,7 +24,7 @@ interface ClaimDTO {
     email: string;
     cpf: string;
     password: string;
-    passwordConfirm: string;
+    confirmPassword: string;
   }
 
   interface LoginUserParams{

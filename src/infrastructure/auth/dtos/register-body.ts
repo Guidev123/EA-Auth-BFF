@@ -25,7 +25,7 @@ class RegisterBodyDTO{
     @IsString()
     @MinLength(4)
     @MaxLength(20)
-    passwordConfirm: string;
+    confirmPassword: string;
 }
 
 export{RegisterBodyDTO};
